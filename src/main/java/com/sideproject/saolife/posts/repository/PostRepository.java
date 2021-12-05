@@ -3,7 +3,6 @@ package com.sideproject.saolife.posts.repository;
 import com.sideproject.saolife.member.domain.Member;
 import com.sideproject.saolife.posts.domain.Post;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,5 +34,9 @@ public class PostRepository {
                 .getResultList()
                 .stream()
                 .findAny();
+    }
+
+    public void delete(Long id) {
+        findOne(id).ifPresent(post -> {em.remove(post);});
     }
 }

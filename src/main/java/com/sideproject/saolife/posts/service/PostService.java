@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,5 +31,14 @@ public class PostService {
 
     public Optional<Post> findOne(Long id) {
         return postRepository.findOne(id);
+    }
+
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    @Transactional
+    public void deletePost(Long postId) {
+        postRepository.delete(postId);
     }
 }
