@@ -142,3 +142,7 @@ gradle-app.setting
 
 .idea
 application.yml
+
+
+# MacOS
+.DS_Store
