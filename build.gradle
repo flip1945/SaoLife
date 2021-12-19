@@ -24,6 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.5.6'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
 	implementation 'mysql:mysql-connector-java'
+	compileOnly 'org.springframework.boot:spring-boot-devtools'
 	compileOnly 'org.projectlombok:lombok:1.18.22'
 	runtimeOnly 'com.h2database:h2:1.4.200'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
