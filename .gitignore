@@ -147,3 +147,4 @@ MANIFEST.MF
 
 # MacOS
 *.DS_Store
+src/main/generated/META-INF/MANIFEST.MF
