@@ -22,6 +22,10 @@ public class Member {
     @Column(nullable = false)
     private String password;
 
+    public void updateMember(String password) {
+        this.password = password;
+    }
+
     @Builder
     public Member(String email, String password) {
         this.email = email;
