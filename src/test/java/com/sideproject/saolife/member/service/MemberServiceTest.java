@@ -1,6 +1,7 @@
 package com.sideproject.saolife.member.service;
 
 import com.sideproject.saolife.member.domain.Member;
+import com.sideproject.saolife.member.domain.MemberJoinDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,36 +22,26 @@ public class MemberServiceTest {
     @Test
     public void 회원_가입() {
         // given
-        Member member = Member.builder()
-                .email("coghdus1016@naver.com")
-                .password("1234")
-                .build();
+        MemberJoinDTO memberJoinDTO = new MemberJoinDTO("testEmail@naver.com", "1234", "1234");
 
         // when
-        Long memberId = memberService.join(member);
+        Long memberId = memberService.join(memberJoinDTO);
 
         // then
         Member findMember = memberService.findOne(memberId).get();
-        assertThat(findMember.getEmail()).isEqualTo(member.getEmail());
-        assertThat(findMember.getPassword()).isEqualTo(member.getPassword());
+        assertThat(findMember.getEmail()).isEqualTo(memberJoinDTO.getEmail());
+        assertThat(findMember.getPassword()).isEqualTo(memberJoinDTO.getPassword());
     }
 
     @Test(expected = IllegalStateException.class)
     public void 중복_회원_가입_예외() {
         // given
-        Member member1 = Member.builder()
-                .email("coghdus1016@naver.com")
-                .password("1234")
-                .build();
-
-        Member member2 = Member.builder()
-                .email("coghdus1016@naver.com")
-                .password("4567")
-                .build();
+        MemberJoinDTO memberJoinDTO1 = new MemberJoinDTO("testEmail@naver.com", "1234", "1234");
+        MemberJoinDTO memberJoinDTO2 = new MemberJoinDTO("testEmail@naver.com", "4567", "4567");
 
         // when
-        memberService.join(member1);
-        memberService.join(member2);
+        memberService.join(memberJoinDTO1);
+        memberService.join(memberJoinDTO2);
 
         // then
         fail("예외가 발생해야 한다.");
@@ -59,38 +50,14 @@ public class MemberServiceTest {
     @Test
     public void 이메일로_회원_찾기() {
         // given
-        Member member = Member.builder()
-                .email("coghdus1016@naver.com")
-                .password("5678")
-                .build();
+        MemberJoinDTO memberJoinDTO = new MemberJoinDTO("testEmail@naver.com", "1234", "1234");
 
-        memberService.join(member);
+        memberService.join(memberJoinDTO);
 
         // when
-        Member findMember = memberService.fineByEmail("coghdus1016@naver.com").get();
+        Member findMember = memberService.fineByEmail("testEmail@naver.com").get();
 
         // then
-        assertThat(findMember.getPassword()).isEqualTo(member.getPassword());
-    }
-
-    @Test
-    public void 모든_회원_찾기() {
-        // given
-        Member member1 = Member.builder()
-                .email("a1@naver.com")
-                .password("123")
-                .build();
-
-        Member member2 = Member.builder()
-                .email("a2@naver.com")
-                .password("123")
-                .build();
-
-        // when
-        memberService.join(member1);
-        memberService.join(member2);
-
-        // then
-        assertThat(memberService.findAll().size()).isEqualTo(2);
+        assertThat(findMember.getPassword()).isEqualTo(memberJoinDTO.getPassword());
     }
 }
