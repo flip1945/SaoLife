@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 목록</title>
+
+    <th:block th:replace="frame/metaheader"></th:block>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="my-5">회원 목록</h1>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <table class="table" >
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member, i : ${members}">
+                    <th th:text="${i.count}">emil</th>
+                    <td th:text="${member.email}">emil</td>
+                    <td th:text="${member.password}">password</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-3 text-center">
+            <div class="col">
+                <a th:href="@{/}" class="btn btn-primary">첫 화면</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
