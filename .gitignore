@@ -143,6 +143,7 @@ gradle-app.setting
 .idea
 application.yml
 
+MANIFEST.MF
 
 # MacOS
 *.DS_Store
