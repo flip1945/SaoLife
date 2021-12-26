@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 목록</title>
+
+    <th:block th:replace="frame/metaheader"></th:block>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="my-5">게시글 목록</h1>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col" class="text-center">#</th>
+                    <th scope="col" class="text-center">제목</th>
+                    <th scope="col" class="text-center">글쓴이</th>
+                    <th scope="col" class="text-center">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="post : ${posts}">
+                    <th style="width: 10%" th:text="${post.id}" class="text-center">id</th>
+                    <td style="width: 50%" th:text="${post.title}">title</td>
+                    <td style="width: 20%" th:text="${post.member.getEmail()}" class="text-center">author</td>
+                    <td style="width: 20%" th:text="${post.createdDate}" class="text-center">createDate</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-3 text-center">
+            <div class="col">
+                <a th:href="@{/}" class="btn btn-primary">첫 화면</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

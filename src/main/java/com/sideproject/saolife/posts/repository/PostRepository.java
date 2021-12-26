@@ -37,6 +37,6 @@ public class PostRepository {
     }
 
     public void delete(Long id) {
-        findOne(id).ifPresent(post -> {em.remove(post);});
+        findOne(id).ifPresent(post -> em.remove(post));
     }
 }

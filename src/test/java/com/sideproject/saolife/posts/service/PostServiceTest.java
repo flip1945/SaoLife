@@ -4,6 +4,7 @@ import com.sideproject.saolife.member.domain.Member;
 import com.sideproject.saolife.member.domain.MemberJoinDTO;
 import com.sideproject.saolife.member.service.MemberService;
 import com.sideproject.saolife.posts.domain.Post;
+import com.sideproject.saolife.posts.domain.PostRequestDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,20 +31,16 @@ public class PostServiceTest {
         MemberJoinDTO memberJoinDTO = new MemberJoinDTO("testEmail@naver.com", "1234", "1234");
         memberService.join(memberJoinDTO);
 
-        Member findMember = memberService.fineByEmail("testEmail@naver.com").get();
+        Member findMember = memberService.findByEmail("testEmail@naver.com");
 
-        Post post = Post.builder()
-                .title("hi")
-                .content("hihihihi")
-                .member(findMember)
-                .build();
+        PostRequestDTO postRequestDTO = new PostRequestDTO("hi", "hihihi", "testEmail.@naver.com");
 
         // when
-        Long postId = postService.save(post);
+        Long postId = postService.registerPost(postRequestDTO, findMember.getEmail());
 
         // then
         Post findPost = postService.findOne(postId).get();
-        assertThat(findPost.getTitle()).isEqualTo(post.getTitle());
-        assertThat(findPost.getContent()).isEqualTo(post.getContent());
+        assertThat(findPost.getTitle()).isEqualTo(postRequestDTO.getTitle());
+        assertThat(findPost.getContent()).isEqualTo(postRequestDTO.getContent());
     }
 }
