@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const msg = [[${msg}]];
+
+        if (msg === '' || msg == null) {
+            location.replace("/");
+        } else {
+            alert(msg);
+            history.go(-1);
+        }
+        /*]]>*/
+    </script>
+</body>
+</html>
