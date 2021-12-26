@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -18,12 +19,12 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("join")
+    @GetMapping("member")
     public String joinMemberPage() {
         return "member/joinForm";
     }
 
-    @PostMapping(value = "join")
+    @PostMapping("member")
     public String joinMember(MemberJoinDTO memberJoinDTO, Model model) {
         String type = "success";
 
@@ -42,21 +43,15 @@ public class MemberController {
         return "member/join";
     }
 
-    @GetMapping(value = "members")
+    @GetMapping("members")
     public String members(Model model) {
-        List<Member> members = memberService.findAll();
-
-        model.addAttribute("members", members);
+        model.addAttribute("members", memberService.findAll());
         return "member/members";
     }
 
-    @PostMapping(value = "update")
+    @PatchMapping("member")
     public String updateMember(MemberUpdateDTO memberUpdateDTO) {
-        Member member = memberService.fineByEmail(memberUpdateDTO.getEmail()).orElseGet(null);
-
-        if (member == null || !memberUpdateDTO.checkPassword(member)) {
-            return "";
-        }
+        Member member = memberService.findByEmail(memberUpdateDTO.getEmail());
 
         memberService.updateMember(memberUpdateDTO.getEmail(), memberUpdateDTO.getUpdatePassword());
         return "index";

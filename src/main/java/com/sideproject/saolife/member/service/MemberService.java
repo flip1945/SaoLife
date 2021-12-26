@@ -1,5 +1,6 @@
 package com.sideproject.saolife.member.service;
 
+import com.sideproject.saolife.Exception.EmailNotFoundException;
 import com.sideproject.saolife.member.domain.Member;
 import com.sideproject.saolife.member.domain.MemberJoinDTO;
 import com.sideproject.saolife.member.repository.MemberRepository;
@@ -44,17 +45,20 @@ public class MemberService {
 
     @Transactional
     public void updateMember(String email, String password) {
-        Member findMember = memberRepository.findByEmail(email).get();
+        Member findMember = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new EmailNotFoundException("이메일을 찾을 수 없습니다."));
 
         findMember.updateMember(password);
     }
 
-    public Optional<Member> findOne(Long memberId) {
-        return memberRepository.findOne(memberId);
+    public Member findOne(Long memberId) {
+        return memberRepository.findOne(memberId)
+                .orElseThrow(() -> new EmailNotFoundException("이메일을 찾을 수 없습니다."));
     }
 
-    public Optional<Member> fineByEmail(String email) {
-        return memberRepository.findByEmail(email);
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new EmailNotFoundException("이메일을 찾을 수 없습니다."));
     }
 
     public List<Member> findAll() {

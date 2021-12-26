@@ -28,7 +28,7 @@ public class MemberServiceTest {
         Long memberId = memberService.join(memberJoinDTO);
 
         // then
-        Member findMember = memberService.findOne(memberId).get();
+        Member findMember = memberService.findOne(memberId);
         assertThat(findMember.getEmail()).isEqualTo(memberJoinDTO.getEmail());
         assertThat(findMember.getPassword()).isEqualTo(memberJoinDTO.getPassword());
     }
@@ -55,7 +55,7 @@ public class MemberServiceTest {
         memberService.join(memberJoinDTO);
 
         // when
-        Member findMember = memberService.fineByEmail("testEmail@naver.com").get();
+        Member findMember = memberService.findByEmail("testEmail@naver.com");
 
         // then
         assertThat(findMember.getPassword()).isEqualTo(memberJoinDTO.getPassword());
