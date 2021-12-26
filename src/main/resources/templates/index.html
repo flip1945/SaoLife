@@ -8,16 +8,41 @@
 <body>
 
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-5">
         <h1 class="my-5">Index page</h1>
     </div>
     <div class="row justify-content-center">
+        <p class="my-2">
+            현재 로그인 아이디 : <span th:text="${session.userEmail}"> X </span>
+        </p>
+    </div>
+    <div class="row justify-content-center mt-5">
         <div class="col-4 text-center">
-            <a th:href="@{/join}" class="btn btn-primary">회원가입</a>
+            <a th:href="@{/member}" class="btn btn-lg btn-primary">회원가입</a>
         </div>
 
         <div class="col-4 text-center">
-            <a th:href="@{/members}" class="btn btn-primary">회원목록</a>
+            <a th:href="@{/members}" class="btn btn-lg btn-primary">회원목록</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-4 text-center">
+            <a th:href="@{/login}" class="btn btn-lg btn-info">로그인</a>
+        </div>
+
+        <div class="col-4 text-center">
+            <a th:href="@{/logout}" class="btn btn-lg btn-info">로그아웃</a>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+        <div class="col-4 text-center">
+            <a th:href="@{/post}" class="btn btn-lg btn-primary">게시글 작성</a>
+        </div>
+
+        <div class="col-4 text-center">
+            <a th:href="@{/posts}" class="btn btn-lg btn-primary">게시글 목록</a>
         </div>
     </div>
 </div>
