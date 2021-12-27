@@ -28,12 +28,12 @@ public class PostServiceTest {
     @Test
     public void 게시글_저장() {
         // given
-        MemberJoinDTO memberJoinDTO = new MemberJoinDTO("testEmail@naver.com", "1234", "1234");
+        MemberJoinDTO memberJoinDTO = new MemberJoinDTO("testEmail123@naver.com", "1234", "1234");
         memberService.join(memberJoinDTO);
 
-        Member findMember = memberService.findByEmail("testEmail@naver.com");
+        Member findMember = memberService.findByEmail("testEmail123@naver.com");
 
-        PostRequestDTO postRequestDTO = new PostRequestDTO("hi", "hihihi", "testEmail.@naver.com");
+        PostRequestDTO postRequestDTO = new PostRequestDTO("hi", "hihihi", "testEmail123@naver.com");
 
         // when
         Long postId = postService.registerPost(postRequestDTO, findMember.getEmail());
