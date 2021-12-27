@@ -22,8 +22,6 @@ public class PostController {
 
     @PostMapping("post")
     public String posting(PostRequestDTO postRequestDTO, HttpSession session) {
-        System.out.println("userEmail : " + (String) session.getAttribute("userEmail"));
-        System.out.println("post" + postRequestDTO);
         postService.registerPost(postRequestDTO, (String) session.getAttribute("userEmail"));
         return "index";
     }
