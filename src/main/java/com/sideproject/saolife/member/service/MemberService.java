@@ -1,6 +1,7 @@
 package com.sideproject.saolife.member.service;
 
 import com.sideproject.saolife.Exception.EmailNotFoundException;
+import com.sideproject.saolife.Exception.PasswordNotMatchException;
 import com.sideproject.saolife.member.domain.Member;
 import com.sideproject.saolife.member.domain.MemberJoinDTO;
 import com.sideproject.saolife.member.repository.MemberRepository;
@@ -31,7 +32,7 @@ public class MemberService {
 
     private void validatePasswordCheck(MemberJoinDTO memberJoinDTO) {
         if (!memberJoinDTO.checkPassword()) {
-            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+            throw new PasswordNotMatchException("비밀번호가 일치하지 않습니다.");
         }
     }
 
