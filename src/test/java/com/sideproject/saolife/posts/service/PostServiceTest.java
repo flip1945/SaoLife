@@ -36,7 +36,7 @@ public class PostServiceTest {
         PostRequestDTO postRequestDTO = new PostRequestDTO("hi", "hihihi", "testEmail123@naver.com");
 
         // when
-        Long postId = postService.registerPost(postRequestDTO, findMember.getEmail());
+        Long postId = postService.registerPost(postRequestDTO);
 
         // then
         Post findPost = postService.findOne(postId).get();
