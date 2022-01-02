@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Saolife : 게시글 보기</title>
+
+    <th:block th:replace="frame/metaheader"></th:block>
+</head>
+<body>
+
+<div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="my-5">게시글 보기</h1>
+        </div>
+        <div class="row justify-content-md-center mt-4">
+            <div class="col-6">
+                <div class="form-group mt-3">
+                    <h4 for="title">제목</h4>
+                    <div th:text="${post.title}" class="my-3">title</div>
+                </div>
+
+                <div class="form-group mt-5">
+                    <h4 for="content">내용</h4>
+                    <div th:text="${post.content}" class="my-3">content</div>
+                </div>
+
+                <input type="hidden" th:value="${session.userEmail}" name="email" id="email">
+            </div>
+        </div>
+
+        <div class="row mt-3 text-center">
+            <div class="col">
+                <a th:href="@{/posts}" class="btn btn-primary">게시글 목록</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

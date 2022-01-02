@@ -25,7 +25,9 @@
                 <tbody>
                 <tr th:each="post : ${posts}">
                     <th style="width: 10%" th:text="${post.id}" class="text-center">id</th>
-                    <td style="width: 50%" th:text="${post.title}">title</td>
+                    <td style="width: 50%">
+                        <a th:href="@{/post/{id}(id=${post.id})}" th:text="${post.title}" style="color: black">title</a>
+                    </td>
                     <td style="width: 20%" th:text="${post.member.getEmail()}" class="text-center">author</td>
                     <td style="width: 20%" th:text="${post.createdDate}" class="text-center">createDate</td>
                 </tr>
