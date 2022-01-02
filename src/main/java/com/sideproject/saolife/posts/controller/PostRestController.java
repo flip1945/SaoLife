@@ -1,8 +1,8 @@
-package com.sideproject.saolife.member.controller;
+package com.sideproject.saolife.posts.controller;
 
 import com.sideproject.saolife.Message;
-import com.sideproject.saolife.member.domain.MemberJoinDTO;
-import com.sideproject.saolife.member.service.MemberService;
+import com.sideproject.saolife.posts.domain.PostRequestDTO;
+import com.sideproject.saolife.posts.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,17 +10,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @RequiredArgsConstructor
-public class MemberRestController {
+public class PostRestController {
 
-    private final MemberService memberService;
+    private final PostService postService;
 
-    @PostMapping("register")
-    public ResponseEntity<Message> join(@RequestBody MemberJoinDTO memberJoinDTO) {
+    @PostMapping("poster")
+    public ResponseEntity<Message> poster(@RequestBody PostRequestDTO postRequestDTO, HttpSession session) {
         Message message;
         try {
-            memberService.join(memberJoinDTO);
+            postService.registerPost(postRequestDTO);
         } catch (Exception e) {
             message = new Message(e.getMessage());
             return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);

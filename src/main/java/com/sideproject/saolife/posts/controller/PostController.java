@@ -1,13 +1,12 @@
 package com.sideproject.saolife.posts.controller;
 
+import com.sideproject.saolife.Exception.PostNotFoundException;
 import com.sideproject.saolife.posts.domain.PostRequestDTO;
 import com.sideproject.saolife.posts.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,15 +20,25 @@ public class PostController {
     }
 
     @PostMapping("post")
-    public String posting(PostRequestDTO postRequestDTO, HttpSession session) {
-        postService.registerPost(postRequestDTO, (String) session.getAttribute("userEmail"));
-        return "index";
+    public String posting(PostRequestDTO postRequestDTO) {
+        postService.registerPost(postRequestDTO);
+        return "redirect:posts";
+    }
+
+    @GetMapping("post/{postNum}")
+    public String postNum(@PathVariable Long postNum, Model model) {
+        try {
+            model.addAttribute("post", postService.findOne(postNum).orElseThrow(() -> new PostNotFoundException("찾을 수 없는 게시글입니다.")));
+        } catch (Exception e) {
+            return "index";
+        }
+        return "post/post";
     }
 
     @PatchMapping("post/{postNum}")
     public String updatePost(PostRequestDTO postRequestDTO, @PathVariable Long postNum) {
         postService.updatePost(postRequestDTO, postNum);
-        return "post/updatePost";
+        return "post/posts";
     }
 
     @GetMapping("posts")
