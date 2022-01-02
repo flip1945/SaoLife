@@ -1,6 +1,5 @@
 package com.sideproject.saolife.posts.service;
 
-import com.sideproject.saolife.Exception.NotLoginException;
 import com.sideproject.saolife.member.domain.Member;
 import com.sideproject.saolife.member.service.MemberService;
 import com.sideproject.saolife.posts.domain.Post;
@@ -22,20 +21,12 @@ public class PostService {
     private final MemberService memberService;
 
     @Transactional
-    public Long registerPost(PostRequestDTO postRequestDTO, String email) {
-        checkLogin(email);
-
+    public Long registerPost(PostRequestDTO postRequestDTO) {
         Member member = memberService.findByEmail(postRequestDTO.getEmail());
         Post post = postRequestDTO.toPost(member);
 
         postRepository.save(post);
         return post.getId();
-    }
-
-    private void checkLogin(String email) {
-        if (email == null || email.equals("")) {
-            throw new NotLoginException("로그인 후에 이용해주십시오.");
-        }
     }
 
     @Transactional
